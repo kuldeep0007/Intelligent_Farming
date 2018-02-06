@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "733198691636",
+    "firebase_url": "https://intelligentfarming.firebaseio.com",
+    "project_id": "intelligentfarming",
+    "storage_bucket": "intelligentfarming.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733198691636:android:4c0848d25907e475",
+        "android_client_info": {
+          "package_name": "com.kuldeep.intelligent_farming"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "733198691636-5ma4pckajfrr7nehs7ur916akuds9k1e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kuldeep.intelligent_farming",
+            "certificate_hash": "883d89d60cc5140cfa44b8c8b9a611e334b655b1"
+          }
+        },
+        {
+          "client_id": "733198691636-js4t0pmupefmlnosamo766qu4pm6dgkp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATgi71VaCT3YqPvoqQ6-_Bgc31Gu1WSUk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "733198691636-js4t0pmupefmlnosamo766qu4pm6dgkp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
