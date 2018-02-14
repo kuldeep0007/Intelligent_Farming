@@ -1,27 +1,17 @@
 package com.kuldeep.intelligent_farming;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.InputType;
 import android.text.TextUtils;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class Login_Activity extends AppCompatActivity {
 
@@ -30,7 +20,6 @@ public class Login_Activity extends AppCompatActivity {
     private CheckBox show_hide_pass_check;
     private Button loginbtn;
     private String email,password;
-    private FirebaseAuth auth;
     private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +31,11 @@ public class Login_Activity extends AppCompatActivity {
     }
     void init()
     {
-        auth = FirebaseAuth.getInstance();
+        /*auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
             startActivity(new Intent(Login_Activity.this, MainActivity.class));
             finish();
-        }
+        }*/
 
         user_email = (EditText) findViewById(R.id.login_email);
         user_password = (EditText) findViewById(R.id.login_password);
@@ -55,7 +44,7 @@ public class Login_Activity extends AppCompatActivity {
         loginbtn = (Button)findViewById(R.id.loginBtn);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        auth = FirebaseAuth.getInstance();
+        /*auth = FirebaseAuth.getInstance();*/
         createaccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +70,7 @@ public class Login_Activity extends AppCompatActivity {
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
-                auth.signInWithEmailAndPassword(email, pass)
+                /*auth.signInWithEmailAndPassword(email, pass)
                         .addOnCompleteListener(Login_Activity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -102,7 +91,7 @@ public class Login_Activity extends AppCompatActivity {
                                     finish();
                                 }
                             }
-                        });
+                        });*/
             }
         });
     }

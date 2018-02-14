@@ -2,9 +2,9 @@ package com.kuldeep.intelligent_farming;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -13,19 +13,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.kuldeep.intelligent_farming.Pojo_classes.farmerPojo;
-
-import static com.kuldeep.intelligent_farming.R.drawable.mobile;
 
 public class SignUp_Activity extends AppCompatActivity {
 
@@ -48,7 +37,6 @@ public class SignUp_Activity extends AppCompatActivity {
 
     private String fname,gender,doB,add,pinc,cid,sid,coid,mob,email_id;
 
-    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +91,6 @@ public class SignUp_Activity extends AppCompatActivity {
             }
         });
 
-        auth = FirebaseAuth.getInstance();
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,7 +117,7 @@ public class SignUp_Activity extends AppCompatActivity {
                     return;
                 }
                 progressBar.setVisibility(View.VISIBLE);
-                auth.createUserWithEmailAndPassword(email, pass)
+                /*auth.createUserWithEmailAndPassword(email, pass)
                         .addOnCompleteListener(SignUp_Activity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -150,7 +137,7 @@ public class SignUp_Activity extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                 }
                             }
-                        });
+                        });*/
 
 
             }

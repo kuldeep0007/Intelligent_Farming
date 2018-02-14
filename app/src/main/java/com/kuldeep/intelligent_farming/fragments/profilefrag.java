@@ -11,17 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.kuldeep.intelligent_farming.Pojo_classes.farmerPojo;
 import com.kuldeep.intelligent_farming.R;
-import com.kuldeep.intelligent_farming.SignUp_Activity;
 
 import static android.content.ContentValues.TAG;
 
@@ -46,7 +37,6 @@ public class profilefrag extends Fragment {
 
     private EditText pusername,pmobile,pemail,pdob,paddress,ppin;
 
-    private DatabaseReference mDatabase;
 
     private OnFragmentInteractionListener mListener;
 
@@ -99,7 +89,7 @@ public class profilefrag extends Fragment {
         ppin=(EditText)view.findViewById(R.id.p_pincode);
 
 
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+       /* FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
 
@@ -131,7 +121,7 @@ public class profilefrag extends Fragment {
             }
         });
 
-
+*/
 
 
 
