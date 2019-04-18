@@ -18,8 +18,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+               android:layout_margin="20dp"
                 android:gravity="center">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/p_profileimage"
@@ -78,51 +77,6 @@
                     android:inputType="textEmailAddress"
                     android:elevation="2dp"/>
 
-                <EditText
-                    android:id="@+id/p_dob"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Date of Birth"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="10dp"
-                    android:padding="5dp"
-                    android:background="@drawable/rect_edittext"
-                    android:textSize="16sp"
-                    android:drawableStart="@drawable/password"
-                    android:drawablePadding="8dp"
-                    android:gravity="center_vertical"
-                    android:elevation="2dp"/>
-                <EditText
-                    android:id="@+id/p_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Address"
-                    android:textColorHint="@color/hintcolor"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="10dp"
-                    android:padding="5dp"
-                    android:background="@drawable/rect_edittext"
-                    android:textSize="16sp"
-                    android:drawableStart="@drawable/password"
-                    android:drawablePadding="8dp"
-                    android:gravity="center_vertical"
-                    android:elevation="2dp"/>
-                <EditText
-                    android:id="@+id/p_pincode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Pin Code"
-                    android:textColorHint="@color/hintcolor"
-                    android:textColor="@color/black"
-                    android:padding="5dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/rect_edittext"
-                    android:textSize="16sp"
-                    android:drawableStart="@drawable/mobile"
-                    android:drawablePadding="8dp"
-                    android:gravity="center_vertical"
-                    android:inputType="number"
-                    android:elevation="2dp"/>
                 <RadioGroup
                     android:id="@+id/radioSex"
                     android:background="@drawable/rect_edittext"
@@ -162,14 +116,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_device"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_edit_black_24dp"
-        app:backgroundTint="@color/colorPrimaryDark"/>
 </RelativeLayout>

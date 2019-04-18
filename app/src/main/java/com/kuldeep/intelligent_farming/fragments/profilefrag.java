@@ -1,6 +1,7 @@
 package com.kuldeep.intelligent_farming.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,11 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 import com.kuldeep.intelligent_farming.Pojo_classes.farmerPojo;
 import com.kuldeep.intelligent_farming.R;
 
 import static android.content.ContentValues.TAG;
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -35,7 +39,9 @@ public class profilefrag extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private EditText pusername,pmobile,pemail,pdob,paddress,ppin;
+    private EditText pusername,pmobile,pemail;
+    private RadioGroup pradioSexGroup;
+    private RadioButton pradiomale,pradiofemale;
 
 
     private OnFragmentInteractionListener mListener;
@@ -84,10 +90,21 @@ public class profilefrag extends Fragment {
         pusername=(EditText)view.findViewById(R.id.p_username);
         pmobile=(EditText)view.findViewById(R.id.p_mobile);
         pemail=(EditText)view.findViewById(R.id.p_email);
-        pdob=(EditText)view.findViewById(R.id.p_dob);
-        pdob=(EditText)view.findViewById(R.id.p_dob);
-        ppin=(EditText)view.findViewById(R.id.p_pincode);
 
+        pradioSexGroup = (RadioGroup)view.findViewById(R.id.radioSex);
+        pradiomale = (RadioButton)view.findViewById(R.id.radioMale);
+        pradiofemale = (RadioButton)view.findViewById(R.id.radioFemale);
+
+        SharedPreferences sharedPref = getContext().getSharedPreferences("farmingSharedPreference", MODE_PRIVATE);
+
+
+        pusername.setText(sharedPref.getString("name","farmer name"));
+        pmobile.setText(sharedPref.getString("mobile","9999999999"));
+        pemail.setText(sharedPref.getString("email","farmer_email@gmail.com"));
+        if(((sharedPref.getString("name","farmer name")).equals("Male")))
+            pradiomale.setChecked(true);
+        else
+            pradiofemale.setChecked(true);
 
        /* FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();

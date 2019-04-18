@@ -1,11 +1,14 @@
 package com.kuldeep.intelligent_farming;
 
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +17,24 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.kuldeep.intelligent_farming.Pojo_classes.farmerPojo;
+import com.kuldeep.intelligent_farming.Project_classes.URLHelper;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUp_Activity extends AppCompatActivity {
 
@@ -23,39 +43,34 @@ public class SignUp_Activity extends AppCompatActivity {
     private EditText mobilenummber;
     private EditText emailid;
     private EditText password;
+
     private EditText confirmpassword;
-    private EditText dob;
-    private EditText address;
-    private EditText pincode;
-    private RadioGroup radiosex;
+    private RadioGroup radioSexGroup;
     private RadioButton radiomale;
     private RadioButton radiofemale;
+
     private Button signup;
     private ProgressBar progressBar;
+    private farmerPojo fp;
 
-    public String userId;
 
-    private String fname,gender,doB,add,pinc,cid,sid,coid,mob,email_id;
+    private String fname, mob, email_id, pass, gender;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_);
-
         init();
-
     }
 
     private void setvalue() {
-        fname=username.getText().toString();
-        gender="";
-        doB=dob.getText().toString();
-        add=address.getText().toString();
-        pinc=pincode.getText().toString();
-        cid="1";sid="1";coid="1";
-        mob=mobilenummber.getText().toString();
-        email_id=emailid.getText().toString();
+        fname = username.getText().toString();
+        mob = mobilenummber.getText().toString();
+        email_id = emailid.getText().toString();
+        pass = password.getText().toString();
+        gender = ((RadioButton) findViewById(radioSexGroup.getCheckedRadioButtonId())).getText().toString();
+
     }
 
     @Override
@@ -64,23 +79,24 @@ public class SignUp_Activity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
     }
 
-    private void init()
-    {
-        logoimage=(ImageView)findViewById(R.id.logo_image);
-        username=(EditText)findViewById(R.id.user_name);
-        mobilenummber=(EditText)findViewById(R.id.mobile_no);
-        emailid=(EditText)findViewById(R.id.email_id);
-        password=(EditText)findViewById(R.id.login_password);
-        confirmpassword=(EditText)findViewById(R.id.confirm_password);
-        dob=(EditText)findViewById(R.id.dob);
-        address=(EditText)findViewById(R.id.address);
-        pincode=(EditText)findViewById(R.id.pin_code);
-        radiosex=(RadioGroup)findViewById(R.id.radioSex);
-        radiomale=(RadioButton)findViewById(R.id.radioMale);
-        radiofemale=(RadioButton)findViewById(R.id.radioFemale);
-        signup=(Button)findViewById(R.id.signipbtn);
+    private void init() {
+
+        logoimage = (ImageView) findViewById(R.id.logo_image);
+        username = (EditText) findViewById(R.id.user_name);
+        mobilenummber = (EditText) findViewById(R.id.mobile_no);
+        emailid = (EditText) findViewById(R.id.email_id);
+        password = (EditText) findViewById(R.id.login_password);
+        confirmpassword = (EditText) findViewById(R.id.confirm_password);
+
+        radioSexGroup = (RadioGroup) findViewById(R.id.radioSex);
+        radiomale = (RadioButton) findViewById(R.id.radioMale);
+        radiofemale = (RadioButton) findViewById(R.id.radioFemale);
+
+        signup = (Button) findViewById(R.id.signipbtn);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
+
+        ((RadioButton) findViewById(radioSexGroup.getCheckedRadioButtonId())).getText();
 
         logoimage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,9 +155,73 @@ public class SignUp_Activity extends AppCompatActivity {
                             }
                         });*/
 
+                fp=new farmerPojo(username.getText().toString(),mobilenummber.getText().toString(),
+                        emailid.getText().toString(),password.getText().toString(),
+                        ((RadioButton) findViewById(radioSexGroup.getCheckedRadioButtonId())).getText().toString());
+
+                Log.d("name",fp.toString());
+
+               userSignup(fp.getFname(),fp.getMobile(),fp.getEmail(),fp.getPassword(),fp.getGender());
 
             }
         });
+
+    }
+
+    private void userSignup(final String name, final String mobile, final String email, final String password, final String gender) {
+
+        StringRequest request = new StringRequest(Request.Method.POST, URLHelper.userSignuup, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d("DEBUG",response);
+                    progressBar.setVisibility(View.INVISIBLE);
+                    parseSignupResponseMessage(response);
+                   // Toast.makeText(getApplicationContext(), "Successfully Registered" , Toast.LENGTH_SHORT).show();
+                  //  startActivity(new Intent(getApplicationContext(),Login_Activity.class));
+                }
+            }, new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(getApplicationContext(), "" + error, Toast.LENGTH_SHORT).show();
+        }
+    }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> map = new HashMap<>();
+                map.put("name", name);
+                map.put("mobile", mobile);
+                map.put("email", email);
+                map.put("password", password);
+                map.put("gender", gender);
+                return map;
+            }
+        };
+        request.setRetryPolicy(
+                new DefaultRetryPolicy(
+                        10000,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+                        )
+        );
+    RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
+}
+
+    private void parseSignupResponseMessage(String response) {
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+            JSONObject jsonObject = (JSONObject) jsonArray.get(0);
+            String error = (String) jsonObject.get("error");
+            if (error.equals("false")) {
+                Toast.makeText(getApplicationContext(), "" +jsonObject.get("message"), Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(),Login_Activity.class));
+            } else {
+                Toast.makeText(getApplicationContext(), "" +jsonObject.get("message"), Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 
